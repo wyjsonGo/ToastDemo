@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General dimensions -->
+    <dimen name="toast_y_offset">0dp</dimen>
+    <dimen name="toast_x_offset">0dp</dimen>
+
+    <dimen name="corners_radius">0dp</dimen>
+</resources>
