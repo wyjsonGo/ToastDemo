@@ -108,7 +108,7 @@ public class ToastW {
     private static Toast makeCustomSmall(Context context, CharSequence text, int background, int iconResource, int duration) {
         int xOffset = context.getResources().getDimensionPixelSize(R.dimen.toast_x_offset);
         int yOffset = context.getResources().getDimensionPixelSize(R.dimen.toast_y_offset);
-        return ToastW.makeCustom(context, text, background, IconPosition.START, iconResource, Gravity.TOP | Gravity.LEFT | Gravity.RIGHT, xOffset, yOffset, duration);
+        return ToastW.makeCustom(context, text, background, IconPosition.START, iconResource, Gravity.TOP | Gravity.START | Gravity.END, xOffset, yOffset, duration);
     }
 
     public static Toast makeCustom(Context context, CharSequence text, int background, IconPosition iconPosition, int iconResource, int gravity, int xOffset, int yOffset, int duration) {
