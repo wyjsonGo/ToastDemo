@@ -145,10 +145,10 @@ public class ToastW {
     }
 
     private static class Icon {
-        static final int SUCCESS = (R.mipmap.toast_mark_success);
-        static final int ERROR = (R.mipmap.toast_mark_no);
-        static final int WARNING = (R.mipmap.toast_mark_warning);
-        static final int INFO = (R.mipmap.toast_mark_info);
+        static final int SUCCESS = R.mipmap.toast_mark_success;
+        static final int ERROR = R.mipmap.toast_mark_no;
+        static final int WARNING = R.mipmap.toast_mark_warning;
+        static final int INFO = R.mipmap.toast_mark_info;
     }
 
     private static void setIcon(Context context, TextView tvMsg, int iconResource, IconPosition iconPosition) {
