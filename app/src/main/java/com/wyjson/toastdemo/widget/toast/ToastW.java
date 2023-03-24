@@ -22,87 +22,95 @@ public class ToastW {
     private static Toast mToast;
 
     public static void makeText(CharSequence text) {
-        makeText(MyApplication.getInstance().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT).show();
     }
 
     public static void makeText(@StringRes int resId) {
-        makeText(MyApplication.getInstance().getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
+        makeText(MyApplication.getInstance(), resId, Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("ShowToast")
-    public static Toast makeText(Context context, CharSequence text, int duration) {
+    private static Toast makeText(Context context, CharSequence text, int duration) {
         if (mToast != null)
             mToast.cancel();
         try {
-            mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), null, duration);
+            mToast = Toast.makeText(context, null, duration);
             mToast.setText(text);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), text, duration);
+            mToast = Toast.makeText(context, text, duration);
         }
         return mToast;
     }
 
     @SuppressLint("ShowToast")
-    public static Toast makeText(Context context, @StringRes int resId, int duration) {
+    private static Toast makeText(Context context, @StringRes int resId, int duration) {
         if (mToast != null)
             mToast.cancel();
         try {
-            mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), null, duration);
-            mToast.setText(MyApplication.getInstance().getApplicationContext().getResources().getText(resId));
+            mToast = Toast.makeText(context, null, duration);
+            mToast.setText(context.getResources().getText(resId));
         } catch (NullPointerException e) {
             e.printStackTrace();
-            mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), MyApplication.getInstance().getApplicationContext().getResources().getText(resId), duration);
+            mToast = Toast.makeText(context, context.getResources().getText(resId), duration);
         }
         return mToast;
     }
 
     public static void makeSuccess(@StringRes int resId) {
-        makeSuccess(MyApplication.getInstance().getApplicationContext(), MyApplication.getInstance().getApplicationContext().getResources().getText(resId)).show();
+        makeSuccess(MyApplication.getInstance().getString(resId));
     }
 
     public static void makeWarning(@StringRes int resId) {
-        makeWarning(MyApplication.getInstance().getApplicationContext(), MyApplication.getInstance().getApplicationContext().getResources().getText(resId)).show();
+        makeWarning(MyApplication.getInstance().getString(resId));
     }
 
     public static void makeError(@StringRes int resId) {
-        makeError(MyApplication.getInstance().getApplicationContext(), MyApplication.getInstance().getApplicationContext().getResources().getText(resId)).show();
+        makeError(MyApplication.getInstance().getString(resId));
     }
 
     public static void makeInfo(@StringRes int resId) {
-        makeInfo(MyApplication.getInstance().getApplicationContext(), MyApplication.getInstance().getApplicationContext().getResources().getText(resId)).show();
+        makeInfo(MyApplication.getInstance().getString(resId));
     }
 
-    public static void makeSuccess(CharSequence textCharSequence) {
-        makeSuccess(MyApplication.getInstance().getApplicationContext(), textCharSequence).show();
+    public static void makeSuccess(CharSequence text) {
+        ToastW.makeCustomSmall(
+                MyApplication.getInstance(),
+                text,
+                Background.SUCCESS,
+                Icon.SUCCESS,
+                text.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG
+        ).show();
     }
 
-    public static void makeWarning(CharSequence textCharSequence) {
-        makeWarning(MyApplication.getInstance().getApplicationContext(), textCharSequence).show();
+    public static void makeWarning(CharSequence text) {
+        ToastW.makeCustomSmall(
+                MyApplication.getInstance(),
+                text,
+                Background.WARNING,
+                Icon.WARNING,
+                text.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG
+        ).show();
     }
 
-    public static void makeError(CharSequence textCharSequence) {
-        makeError(MyApplication.getInstance().getApplicationContext(), textCharSequence).show();
+    public static void makeError(CharSequence text) {
+        ToastW.makeCustomSmall(
+                MyApplication.getInstance(),
+                text,
+                Background.ERROR,
+                Icon.ERROR,
+                text.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG
+        ).show();
     }
 
-    public static void makeInfo(CharSequence textCharSequence) {
-        makeInfo(MyApplication.getInstance().getApplicationContext(), textCharSequence).show();
-    }
-
-    public static Toast makeSuccess(Context context, CharSequence textCharSequence) {
-        return ToastW.makeCustomSmall(context, textCharSequence, Background.SUCCESS, Icon.SUCCESS, textCharSequence.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
-    }
-
-    public static Toast makeWarning(Context context, CharSequence textCharSequence) {
-        return ToastW.makeCustomSmall(context, textCharSequence, Background.WARNING, Icon.WARNING, textCharSequence.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
-    }
-
-    public static Toast makeError(Context context, CharSequence textCharSequence) {
-        return ToastW.makeCustomSmall(context, textCharSequence, Background.ERROR, Icon.ERROR, textCharSequence.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
-    }
-
-    public static Toast makeInfo(Context context, CharSequence textCharSequence) {
-        return ToastW.makeCustomSmall(context, textCharSequence, Background.INFO, Icon.INFO, textCharSequence.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
+    public static void makeInfo(CharSequence text) {
+        ToastW.makeCustomSmall(
+                MyApplication.getInstance(),
+                text,
+                Background.INFO,
+                Icon.INFO,
+                text.toString().trim().length() <= 14 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG
+        ).show();
     }
 
     private static Toast makeCustomSmall(Context context, CharSequence text, int background, int iconResource, int duration) {
@@ -111,7 +119,7 @@ public class ToastW {
         return ToastW.makeCustom(context, text, background, IconPosition.START, iconResource, Gravity.TOP | Gravity.START | Gravity.END, xOffset, yOffset, duration);
     }
 
-    public static Toast makeCustom(Context context, CharSequence text, int background, IconPosition iconPosition, int iconResource, int gravity, int xOffset, int yOffset, int duration) {
+    private static Toast makeCustom(Context context, CharSequence text, int background, IconPosition iconPosition, int iconResource, int gravity, int xOffset, int yOffset, int duration) {
         if (mToast != null)
             mToast.cancel();
 
@@ -122,7 +130,7 @@ public class ToastW {
         tvMsg.setText(text);
         llRootLayout.setBackgroundResource(background);
 
-        mToast = new Toast(MyApplication.getInstance().getApplicationContext());
+        mToast = new Toast(MyApplication.getInstance());
         mToast.setDuration(duration);
         mToast.setGravity(gravity, xOffset, yOffset);
         setIcon(context, tvMsg, iconResource, iconPosition);
@@ -145,6 +153,7 @@ public class ToastW {
     }
 
     private static class Icon {
+        static final int NONE = 0;
         static final int SUCCESS = R.mipmap.toast_mark_success;
         static final int ERROR = R.mipmap.toast_mark_no;
         static final int WARNING = R.mipmap.toast_mark_warning;
