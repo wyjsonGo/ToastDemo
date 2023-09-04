@@ -49,10 +49,10 @@ public class ToastW {
             mToast.cancel();
         try {
             mToast = Toast.makeText(context, null, duration);
-            mToast.setText(context.getResources().getText(resId));
+            mToast.setText(resId);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            mToast = Toast.makeText(context, context.getResources().getText(resId), duration);
+            mToast = Toast.makeText(context, resId, duration);
         }
         return mToast;
     }
